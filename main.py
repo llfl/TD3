@@ -40,7 +40,7 @@ def evaluate_policy(policy, eval_episodes=10):
     for _ in range(eval_episodes):
         obs = env.reset()
         done = False
-        print(np.array(obs).reshape(1,-1))
+        print(obs.values())
         while not done:
             action = policy.select_action(np.array(obs.values()))
             obs, reward, done, _ = env.step(action)
