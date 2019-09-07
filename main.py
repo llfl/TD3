@@ -3,7 +3,7 @@ import torch
 import gym
 import argparse
 import os
-import mujoco-py
+import mujoco
 import utils
 import TD3
 import OurDDPG
