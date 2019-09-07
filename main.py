@@ -14,7 +14,7 @@ import DDPG
 def evaluate_policy(policy, eval_episodes=10):
     avg_reward = 0.
     for _ in range(eval_episodes):
-        obs = env.reset()["observation"]
+        obs = env.reset()
         done = False
         print(obs)
         while not done:
@@ -66,7 +66,8 @@ if __name__ == "__main__":
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
     
-    state_dim = env.observation_space["observation"].shape[0] + env.observation_space["desired_goal"].shape[0]
+    #state_dim = env.observation_space["observation"].shape[0] + env.observation_space["desired_goal"].shape[0]
+    state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.shape[0] 
     max_action = float(env.action_space.high[0])
 
