@@ -3,7 +3,7 @@ import torch
 import gym
 import argparse
 import os
-
+import mujoco_py
 import utils
 import TD3
 import OurDDPG
@@ -23,9 +23,9 @@ def evaluate_policy(policy, eval_episodes=10):
 
 	avg_reward /= eval_episodes
 
-	print "---------------------------------------"
-	print "Evaluation over %d episodes: %f" % (eval_episodes, avg_reward)
-	print "---------------------------------------"
+	print( "---------------------------------------")
+	print( "Evaluation over %d episodes: %f" % (eval_episodes, avg_reward))
+	print( "---------------------------------------")
 	return avg_reward
 
 
@@ -33,7 +33,7 @@ if __name__ == "__main__":
 	
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--policy_name", default="TD3")					# Policy name
-	parser.add_argument("--env_name", default="HalfCheetah-v1")			# OpenAI gym environment name
+	parser.add_argument("--env_name", default="FetchReach-v1")			# OpenAI gym environment name
 	parser.add_argument("--seed", default=0, type=int)					# Sets Gym, PyTorch and Numpy seeds
 	parser.add_argument("--start_timesteps", default=1e4, type=int)		# How many time steps purely random policy is run for
 	parser.add_argument("--eval_freq", default=5e3, type=float)			# How often (time steps) we evaluate
@@ -49,9 +49,9 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 
 	file_name = "%s_%s_%s" % (args.policy_name, args.env_name, str(args.seed))
-	print "---------------------------------------"
-	print "Settings: %s" % (file_name)
-	print "---------------------------------------"
+	print( "---------------------------------------")
+	print( "Settings: %s" % (file_name))
+	print( "---------------------------------------")
 
 	if not os.path.exists("./results"):
 		os.makedirs("./results")
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 	torch.manual_seed(args.seed)
 	np.random.seed(args.seed)
 	
-	state_dim = env.observation_space.shape[0]
+	state_dim = env.observation_space["observation"].shape[0] + env.observation_space["desired_goal"].shape[0]
 	action_dim = env.action_space.shape[0] 
 	max_action = float(env.action_space.high[0])
 
