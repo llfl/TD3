@@ -1,2 +1,2 @@
 gym
-mujoco-py==0.5.7
+mujoco-py
