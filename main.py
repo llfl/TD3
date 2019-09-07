@@ -17,19 +17,22 @@ def dctToNdarray (dd, szFormat = 'f8'):
     retrun 
      data : numpy NdArray 
     ''' 
-    names = dd.keys() 
-    print(names)
+    # names = dd.keys() 
+    # print(names)
     
-    formats = [szFormat]*len(names) 
-    dtype = dict(names = names, formats=formats) 
-    values = [tuple(dd[k][0] for k in dd.keys())] 
-    data = np.array(values, dtype=dtype) 
-    for j in dd.keys():
-        for i in range(1,len(dd[j])) : 
-            values = [tuple(dd[j][i])] 
-            data_tmp = np.array(values, dtype=dtype) 
-            data = np.concatenate((data,data_tmp)) 
-    return data 
+    # formats = [szFormat]*len(names) 
+    # dtype = dict(names = names, formats=formats) 
+    # values = [tuple(dd[k][0] for k in dd.keys())] 
+    # data = np.array(values, dtype=dtype) 
+    # for j in dd.keys():
+    #     for i in range(1,len(dd[j])) : 
+    #         values = [tuple(dd[j][i])] 
+    #         data_tmp = np.array(values, dtype=dtype) 
+    #         data = np.concatenate((data,data_tmp)) 
+    # return data 
+    arrays = {'names': np.array(k.keys(), dtype=float), 
+      'values': np.array(k.values(), dtype=float)}
+    return arrays
 
 # Runs policy for X episodes and returns average reward
 def evaluate_policy(policy, eval_episodes=10):
@@ -39,7 +42,7 @@ def evaluate_policy(policy, eval_episodes=10):
         done = False
         print(np.array(obs).reshape(1,-1))
         while not done:
-            action = policy.select_action(np.array(dctToNdarray(obs)))
+            action = policy.select_action(np.array(obs.values()))
             obs, reward, done, _ = env.step(action)
             avg_reward += reward
 
