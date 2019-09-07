@@ -9,6 +9,25 @@ import TD3
 import OurDDPG
 import DDPG
 
+def dctToNdarray (dd, szFormat = 'f8'): 
+    ''' 
+    Convert a 'rectangular' dictionnary to numpy NdArray 
+    entry 
+     dd : dictionnary (same len of list 
+    retrun 
+     data : numpy NdArray 
+    ''' 
+    names = dd.keys() 
+    firstKey = dd.keys()[0] 
+    formats = [szFormat]*len(names) 
+    dtype = dict(names = names, formats=formats) 
+    values = [tuple(dd[k][0] for k in dd.keys())] 
+    data = np.array(values, dtype=dtype) 
+    for i in range(1,len(dd[firstKey])) : 
+        values = [tuple(dd[k][i] for k in dd.keys())] 
+        data_tmp = np.array(values, dtype=dtype) 
+        data = np.concatenate((data,data_tmp)) 
+    return data 
 
 # Runs policy for X episodes and returns average reward
 def evaluate_policy(policy, eval_episodes=10):
@@ -18,7 +37,7 @@ def evaluate_policy(policy, eval_episodes=10):
         done = False
         print(np.array(obs).reshape(1,-1))
         while not done:
-            action = policy.select_action(np.array(obs))
+            action = policy.select_action(np.array(dctToNdarray(obs)))
             obs, reward, done, _ = env.step(action)
             avg_reward += reward
 
