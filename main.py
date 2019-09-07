@@ -40,9 +40,11 @@ def evaluate_policy(policy, eval_episodes=10):
     for _ in range(eval_episodes):
         obs = env.reset()
         done = False
-        print(np.array(list(obs.values())))
         while not done:
-            action = policy.select_action(np.array(list(obs.values())))
+			
+			##2019.09.08
+			obs = np.concatenate((obs["observation"],obs[""desired_goal"]),axis=0)
+            action = policy.select_action(obs)
             obs, reward, done, _ = env.step(action)
             avg_reward += reward
 
@@ -90,7 +92,8 @@ if __name__ == "__main__":
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
     
-    state_dim = env.observation_space["observation"].shape[0] + env.observation_space["desired_goal"].shape[0]+env.observation_space["achieved_goal"].shape[0]
+	##2019.09.08
+    state_dim = env.observation_space["observation"].shape[0] + env.observation_space["desired_goal"].shape[0]
     #state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.shape[0] 
     max_action = float(env.action_space.high[0])
@@ -131,6 +134,9 @@ if __name__ == "__main__":
             
             # Reset environment
             obs = env.reset()
+			
+			##2019.09.08
+			obs = np.concatenate((obs["observation"],obs[""desired_goal"]),axis=0)
             done = False
             episode_reward = 0
             episode_timesteps = 0
@@ -148,7 +154,9 @@ if __name__ == "__main__":
         new_obs, reward, done, _ = env.step(action) 
         done_bool = 0 if episode_timesteps + 1 == env._max_episode_steps else float(done)
         episode_reward += reward
-
+		
+		# 20190908
+		new_obs = np.concatenate((new_obs["observation"],new_obs[""desired_goal"]),axis=0)
         # Store data in replay buffer
         replay_buffer.add((obs, new_obs, action, reward, done_bool))
 
