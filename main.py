@@ -43,7 +43,7 @@ def evaluate_policy(policy, eval_episodes=10):
         while not done:
             
             ##2019.09.08
-            obs = np.concatenate((obs["observation"],obs[""desired_goal"]),axis=0)
+            obs = np.concatenate((obs["observation"],obs["desired_goal"]),axis=0)
             action = policy.select_action(obs)
             obs, reward, done, _ = env.step(action)
             avg_reward += reward
@@ -136,7 +136,7 @@ if __name__ == "__main__":
             obs = env.reset()
             
             ##2019.09.08
-            obs = np.concatenate((obs["observation"],obs[""desired_goal"]),axis=0)
+            obs = np.concatenate((obs["observation"],obs["desired_goal"]),axis=0)
             done = False
             episode_reward = 0
             episode_timesteps = 0
@@ -156,7 +156,7 @@ if __name__ == "__main__":
         episode_reward += reward
         
         # 20190908
-        new_obs = np.concatenate((new_obs["observation"],new_obs[""desired_goal"]),axis=0)
+        new_obs = np.concatenate((new_obs["observation"],new_obs["desired_goal"]),axis=0)
         # Store data in replay buffer
         replay_buffer.add((obs, new_obs, action, reward, done_bool))
 
