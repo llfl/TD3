@@ -75,7 +75,7 @@ if __name__ == "__main__":
     parser.add_argument("--policy_freq", default=2, type=int)            # Frequency of delayed policy updates
     args = parser.parse_args()
 
-    file_name = "%s_%s_%s" % (args.policy_name, args.env_name, str(args.seed))
+    file_name = "%s_%s_%s_%s" % (args.policy_name, args.env_name, str(args.seed),str(args.max_timesteps))
     print( "---------------------------------------")
     print( "Settings: %s" % (file_name))
     print( "---------------------------------------")
