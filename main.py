@@ -18,7 +18,7 @@ def evaluate_policy(policy, eval_episodes=10):
         done = False
         print(obs)
         while not done:
-            action = policy.select_action(np.array(obs,dtype=np.float32))
+            action = policy.select_action(np.array(obs["observation"]))
             obs, reward, done, _ = env.step(action)
             avg_reward += reward
 
