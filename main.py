@@ -18,6 +18,7 @@ def dctToNdarray (dd, szFormat = 'f8'):
      data : numpy NdArray 
     ''' 
     names = dd.keys() 
+    print(names)
     firstKey = dd.keys()[0] 
     formats = [szFormat]*len(names) 
     dtype = dict(names = names, formats=formats) 
