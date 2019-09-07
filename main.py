@@ -19,15 +19,16 @@ def dctToNdarray (dd, szFormat = 'f8'):
     ''' 
     names = dd.keys() 
     print(names)
-    firstKey = dd.keys()[0] 
+    
     formats = [szFormat]*len(names) 
     dtype = dict(names = names, formats=formats) 
     values = [tuple(dd[k][0] for k in dd.keys())] 
     data = np.array(values, dtype=dtype) 
-    for i in range(1,len(dd[firstKey])) : 
-        values = [tuple(dd[k][i] for k in dd.keys())] 
-        data_tmp = np.array(values, dtype=dtype) 
-        data = np.concatenate((data,data_tmp)) 
+    for j in dd.keys():
+        for i in range(1,len(dd[j])) : 
+            values = [tuple(dd[j][i])] 
+            data_tmp = np.array(values, dtype=dtype) 
+            data = np.concatenate((data,data_tmp)) 
     return data 
 
 # Runs policy for X episodes and returns average reward
