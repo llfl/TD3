@@ -61,7 +61,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--policy_name", default="TD3")                    # Policy name
     parser.add_argument("--env_name", default="FetchReach-v1")            # OpenAI gym environment name
-    parser.add_argument("--seed", default=401, type=int)                    # Sets Gym, PyTorch and Numpy seeds
+    parser.add_argument("--seed", default=1285985, type=int)                    # Sets Gym, PyTorch and Numpy seeds
     parser.add_argument("--start_timesteps", default=2e4, type=int)        # How many time steps purely random policy is run for
     parser.add_argument("--eval_freq", default=5e3, type=float)            # How often (time steps) we evaluate
     parser.add_argument("--max_timesteps", default=5e6, type=float)        # Max time steps to run environment for
