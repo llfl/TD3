@@ -9,31 +9,6 @@ import TD3
 import OurDDPG
 import DDPG
 
-def dctToNdarray (dd, szFormat = 'f8'): 
-    ''' 
-    Convert a 'rectangular' dictionnary to numpy NdArray 
-    entry 
-     dd : dictionnary (same len of list 
-    retrun 
-     data : numpy NdArray 
-    ''' 
-    # names = dd.keys() 
-    # print(names)
-    
-    # formats = [szFormat]*len(names) 
-    # dtype = dict(names = names, formats=formats) 
-    # values = [tuple(dd[k][0] for k in dd.keys())] 
-    # data = np.array(values, dtype=dtype) 
-    # for j in dd.keys():
-    #     for i in range(1,len(dd[j])) : 
-    #         values = [tuple(dd[j][i])] 
-    #         data_tmp = np.array(values, dtype=dtype) 
-    #         data = np.concatenate((data,data_tmp)) 
-    # return data 
-    arrays = {'names': np.array(k.keys(), dtype=float), 
-      'values': np.array(k.values(), dtype=float)}
-    return arrays
-
 # Runs policy for X episodes and returns average reward
 def evaluate_policy(policy, eval_episodes=10):
     avg_reward = 0.
@@ -41,7 +16,6 @@ def evaluate_policy(policy, eval_episodes=10):
         obs = env.reset()
         done = False
         while not done:
-            
             ##2019.09.08
             obs = np.concatenate((obs["observation"],obs["desired_goal"]),axis=0)
             action = policy.select_action(obs)
@@ -61,10 +35,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--policy_name", default="TD3")                    # Policy name
     parser.add_argument("--env_name", default="FetchReach-v1")            # OpenAI gym environment name
-    parser.add_argument("--seed", default=1285985, type=int)                    # Sets Gym, PyTorch and Numpy seeds
+    parser.add_argument("--seed", default=3592864, type=int)                    # Sets Gym, PyTorch and Numpy seeds
     parser.add_argument("--start_timesteps", default=2e4, type=int)        # How many time steps purely random policy is run for
     parser.add_argument("--eval_freq", default=5e3, type=float)            # How often (time steps) we evaluate
-    parser.add_argument("--max_timesteps", default=1e5, type=float)        # Max time steps to run environment for
+    parser.add_argument("--max_timesteps", default=1e6, type=float)        # Max time steps to run environment for
     parser.add_argument("--save_models", default=True,action="store_true")            # Whether or not models are saved
     parser.add_argument("--expl_noise", default=0.1, type=float)        # Std of Gaussian exploration noise
     parser.add_argument("--batch_size", default=100, type=int)            # Batch size for both actor and critic
