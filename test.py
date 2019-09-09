@@ -9,7 +9,7 @@ import re
 import numpy as np
 import glfw
 import mujoco_py
-import roboschool
+#import roboschool
 from scipy.stats import beta
 
 def loadModel(policy,midstr):
