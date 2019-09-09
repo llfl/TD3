@@ -27,7 +27,7 @@ def test(test_epoch):
     action_dim = env.action_space.shape[0] 
     max_action = float(env.action_space.high[0])
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    policy = TD3.TD3(state_dim,action_dim,max_action,device)
+    policy = TD3.TD3(state_dim,action_dim,max_action)
     #loadModel(policy,"models/model_36021.pt")
     filename = 'TD3_FetchReach-v1_543117_500000.0'
     policy.load(filename, './pytorch_models')
