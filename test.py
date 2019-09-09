@@ -22,7 +22,7 @@ def loadModel(policy,midstr):
 def test(test_epoch):
     env = gym.make('FetchReach-v1')
     
-    state_dim = env.observation_space.shape[0]
+    #state_dim = env.observation_space.shape[0]
     state_dim = env.observation_space["desired_goal"].shape[0] + env.observation_space["observation"].shape[0]
     action_dim = env.action_space.shape[0] 
     max_action = float(env.action_space.high[0])
