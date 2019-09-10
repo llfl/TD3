@@ -41,7 +41,7 @@ def test(test_epoch):
         while(True):
             env.render()
 
-            tr_obser = np.concatenate((tr_obser["desired_goal"],tr_obser["observation"]),axis = 0)
+            tr_obser = np.concatenate((tr_obser["observation"],tr_obser["desired_goal"]),axis = 0)
             tr_action = policy.select_action(tr_obser)
             tr_obser, tr_reward, is_terminal, _ = env.step(tr_action)
 
