@@ -29,7 +29,7 @@ def test(test_epoch):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     policy = TD3.TD3(state_dim,action_dim,max_action)
     #loadModel(policy,"models/model_36021.pt")
-    filename = 'TD3_FetchReach-v1_3592864_1000000.0'
+    filename = 'TD3_FetchReach-v1_311204_500000.0'
     policy.load(filename, './pytorch_models')
 
     for _ in range(1000):
